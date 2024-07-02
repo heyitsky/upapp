@@ -23,7 +23,7 @@ def menu():
         match(choice):
             case "1":
                 print('---------------------------------------------------------------')
-                # viewAccountMenu()
+                viewAccounts()
                 print("view account working!")
                 input('Press enter to continue...')
             
@@ -55,12 +55,11 @@ def menu():
         choice = input('')
     print("Bye for now!")
 
-
 def requestBuilder(destination, *args):
     match(destination):
         case "ping":
             location = "/util/ping"
-        case "account":
+        case "accounts":
             location = "/accounts"
         case _:
             location = "/util/ping"
@@ -72,6 +71,10 @@ def testAPI():
     # request = requests.get(BASE_URL+'/util/ping', headers={"Authorization": "Bearer " + AUTH_TOKEN})
     request = requestBuilder("ping")
     print(request['meta']['statusEmoji'])
+
+def viewAccounts():
+    request = requestBuilder("accounts")
+    print(request)
 
 if __name__ == "__main__":
     menu()
