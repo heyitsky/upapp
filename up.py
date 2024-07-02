@@ -35,7 +35,7 @@ def menu():
             
             case "3":
                 print('---------------------------------------------------------------')
-                # testAPI()
+                testAPI()
                 print("test api working!")
                 input('Press enter to continue...')
             
@@ -55,6 +55,23 @@ def menu():
         choice = input('')
     print("Bye for now!")
 
+
+def requestBuilder(destination, *args):
+    match(destination):
+        case "ping":
+            location = "/util/ping"
+        case "account":
+            location = "/accounts"
+        case _:
+            location = "/util/ping"
+    # have a switch which adds destination based off of function calling it i.e. accounts
+    request = requests.get(BASE_URL+location, headers={"Authorization": "Bearer " + AUTH_TOKEN})
+    return request.json()
+
+def testAPI():
+    # request = requests.get(BASE_URL+'/util/ping', headers={"Authorization": "Bearer " + AUTH_TOKEN})
+    request = requestBuilder("ping")
+    print(request['meta']['statusEmoji'])
 
 if __name__ == "__main__":
     menu()
