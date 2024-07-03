@@ -12,3 +12,4 @@ Optional:
 ## Bugs/Changes to be Made:
 - Add option to use .env for token or access token from file
 - Add error handling for requests (test for response codes)
+- Create account class, store id, type, name, value, trans?
