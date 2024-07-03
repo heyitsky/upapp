@@ -73,8 +73,15 @@ def testAPI():
     print(request['meta']['statusEmoji'])
 
 def viewAccounts():
-    request = requestBuilder("accounts")
-    print(request)
+    response = requestBuilder("accounts")
+    # handle json response
+    handleJSON(response)
+
+def handleJSON(response):
+    if "data" in response:
+        for element in response["data"]:
+            print(element)
+            print()
 
 if __name__ == "__main__":
     menu()
