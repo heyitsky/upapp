@@ -75,13 +75,20 @@ def testAPI():
 def viewAccounts():
     response = requestBuilder("accounts")
     # handle json response
-    handleJSON(response)
+    data_list = getData(response)
+    if len(data_list) > 0:
+        printAccounts(data_list)
 
-def handleJSON(response):
+def printAccounts(data_list):
+    for account in data_list:
+        print(account["attributes"]["displayName"] + " - $" + account["attributes"]["balance"]["value"])
+
+def getData(response):
     if "data" in response:
+        data_list = []
         for element in response["data"]:
-            print(element)
-            print()
-
+            data_list.append(element)
+        return data_list
+        
 if __name__ == "__main__":
     menu()
