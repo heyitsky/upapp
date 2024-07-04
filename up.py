@@ -6,6 +6,16 @@ load_dotenv(dotenv_path='./auth.env')
 
 BASE_URL = "https://api.up.com.au/api/v1/"
 AUTH_TOKEN = os.getenv('API_TOKEN')
+account_list = []
+
+class Account:
+    def __init__(self, type, id, name, ownership, balance):
+        self.type = type
+        self.id = id
+        self.name = name
+        self.balance = balance
+        self.ownership = ownership
+        self.emoji = name.split(' ')[0]
 
 def menu():
     print("Desktop Up Bank App!")
@@ -77,11 +87,15 @@ def viewAccounts():
     # handle json response
     data_list = getData(response)
     if len(data_list) > 0:
-        printAccounts(data_list)
+        for account in data_list:    
+            addAccount(data_list)
 
-def printAccounts(data_list):
-    for account in data_list:
-        print(account["attributes"]["displayName"] + " - $" + account["attributes"]["balance"]["value"])
+def addAccount(account):
+        account_list.append(Account(account["attributes"]["accountType"]),
+                            account["id"],
+                            account["attributes"]["displayName"],
+                            account["attributes"]["ownershipType"],
+                            account["attributes"]["balance"])
 
 def getData(response):
     if "data" in response:
@@ -90,5 +104,9 @@ def getData(response):
             data_list.append(element)
         return data_list
         
-if __name__ == "__main__":
+def main():
+
     menu()
+
+if __name__ == "__main__":
+    main()
