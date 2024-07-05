@@ -88,17 +88,17 @@ def viewAccounts():
     data_list = getData(response)
     if len(data_list) > 0:
         for account in data_list:    
-            addAccount(data_list)
+            addAccount(account)
     for account in account_list:
-        print(account)
+        print(account.name + " - $" + account.balance)
 
 # to fix
 def addAccount(account):
-        account_list.append(Account(account["attributes"]["accountType"],
-                            account["id"],
-                            account["attributes"]["displayName"],
-                            account["attributes"]["ownershipType"],
-                            account["attributes"]["balance"]))
+    account_list.append(Account(account["attributes"]["accountType"],
+                        account["id"],
+                        account["attributes"]["displayName"],
+                        account["attributes"]["ownershipType"],
+                        account["attributes"]["balance"]["value"]))
 
 def getData(response):
     if "data" in response:
