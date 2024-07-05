@@ -92,7 +92,6 @@ def viewAccounts():
     for account in account_list:
         print(account.name + " - $" + account.balance)
 
-# to fix
 def addAccount(account):
     account_list.append(Account(account["attributes"]["accountType"],
                         account["id"],
