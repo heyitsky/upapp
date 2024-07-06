@@ -1,12 +1,6 @@
-from dotenv import load_dotenv
 import os
+from dotenv import load_dotenv
 
-def initialise():
+def get_auth_info():
     load_dotenv(dotenv_path='./auth.env')
-
-def get_url():
-    return "https://api.up.com.au/api/v1/"
-
-def get_token():
-    initialise()
-    return os.getenv('API_TOKEN')
+    return ("https://api.up.com.au/api/v1/", os.getenv('API_TOKEN'))
