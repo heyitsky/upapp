@@ -1,5 +1,3 @@
 auth.env
 myenv
 venv
-__pycache__/*
-pycache
