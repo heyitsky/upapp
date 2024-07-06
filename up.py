@@ -1,7 +1,7 @@
 from upapp.api_client import APIClient
 from upapp.account import Account
-from upapp.auth import get_token, get_url
 from upapp.json_handler import JSONHandler
+from upapp.auth import get_auth_info
 
 account_list = []
 
@@ -28,11 +28,12 @@ def requestBuilder(destination, *args):
 
 def test_api(client):
     # request = requests.get(BASE_URL+'/util/ping', headers={"Authorization": "Bearer " + AUTH_TOKEN}
-    request = client.get("/util/ping")
-    print(request['meta']['statusEmoji'])
+    resp = client.get("util/ping")
+    print(resp['meta']['statusEmoji'])
 
 def get_accounts(client, json_handler):
-    data_list = json_handler.get_data(client.get("/accounts"))
+    resp = client.get("accounts")
+    data_list = json_handler.get_data(resp)
     if len(data_list) > 0:
         for account in data_list:
             add_account(account)
@@ -47,7 +48,8 @@ def add_account(account):
                         account["attributes"]["balance"]["value"]))
 
 def main():
-    client = APIClient(get_url(), get_token())
+    auth_info = get_auth_info()
+    client = APIClient(auth_info[0], auth_info[1])
     json_handler = JSONHandler()
     display_menu()
     choice = input('')
@@ -75,10 +77,10 @@ def main():
                 print('---------------------------------------------------------------')
                 print("Invalid option! Please select from the menu")
                 input('Press enter to continue...')
+
         display_menu()
         choice = input('')
         print("Bye for now!")
 
 if __name__ == "__main__":
     main()
-
