@@ -4,13 +4,14 @@ class APIClient:
     def __init__(self, base_url, auth_key):
         self.base_url = base_url
         self.auth_key = auth_key
+        print(self.base_url, self.auth_key)
     
     def get(self, endpoint):
         url = self.base_url+endpoint
-        headers = {'Authorisation': f'Bearer {self.auth_key}'}
-        try :
-            resp = requests.get(url, headers)
-            resp.raise_for_status()
+        headers = {"Authorization": "Bearer " + self.auth_key}
+        try:
+            resp = requests.get(url, headers=headers)
+            # resp.raise_for_status()
             return resp.json()
 
         except requests.exceptions.HTTPError as http_err:
@@ -19,6 +20,7 @@ class APIClient:
             print(f"Connection Error occurred: {conn_err}")
         except requests.exceptions.Timeout as time_err:
             print(f"Timeout error occurred: {time_err}")
+        
         return None
     
 # Add optional *args/**kwargs which get assigned to a var. If the var is empty, 
