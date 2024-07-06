@@ -38,7 +38,8 @@ def get_accounts(client, json_handler):
         for account in data_list:
             add_account(account)
     for account in account_list:
-        print(account.name + " - $" + account.balance)
+        # print(account)
+        print(f"{account.emoji.strip()} {account.name} - ${account.balance}")
 
 def add_account(account):
     account_list.append(Account(account["attributes"]["accountType"],
@@ -58,19 +59,19 @@ def main():
             case "1":
                 print('---------------------------------------------------------------')
                 get_accounts(client, json_handler)
-                print("view account working!")
+                # print("view account working!")
                 input('Press enter to continue...')
             
             case "2":
                 print('---------------------------------------------------------------')
                 # viewAccountTransactions()
-                print("view transactions working!")
+                # print("view transactions working!")
                 input('Press enter to continue...')
             
             case "3":
                 print('---------------------------------------------------------------')
                 test_api(client)
-                print("test api working!")
+                # print("test api working!")
                 input('Press enter to continue...')
             
             case _:
