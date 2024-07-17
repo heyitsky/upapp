@@ -4,7 +4,6 @@ class APIClient:
     def __init__(self, base_url, auth_key):
         self.base_url = base_url
         self.auth_key = auth_key
-        print(self.base_url, self.auth_key)
     
     def get(self, endpoint):
         url = self.base_url+endpoint
