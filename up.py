@@ -67,9 +67,9 @@ def main():
     auth_info = get_auth_info()
     client = APIClient(auth_info[0], auth_info[1])
     json_handler = JSONHandler()
-    display_menu()
-    choice = input('')
-    while choice != "4":
+    while True:
+        display_menu()
+        choice = input('')
         match(choice):
             case "1":
                 print('---------------------------------------------------------------')
@@ -103,14 +103,14 @@ def main():
                 # print("test api working!")
                 input('Press enter to continue...')
             
+            case "4":
+                print("Bye for now!")
+                break
+
             case _:
                 print('---------------------------------------------------------------')
                 print("Invalid option! Please select from the menu")
                 input('Press enter to continue...')
-
-        display_menu()
-        choice = input('')
-        print("Bye for now!")
 
 if __name__ == "__main__":
     main()
