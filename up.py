@@ -31,9 +31,24 @@ def test_api(client):
     resp = client.get("util/ping")
     print(resp['meta']['statusEmoji'])
 
+def get_transactions(client, json_hanlder):
+    resp = client.get("accounts")
+    data_list = json_hanlder.get_data(resp)
+    account_list = []
+    if len(data_list) > 0:
+        for account in data_list:
+            add_account(account)
+    counter = 1
+    for account in account_list:
+        print(f"{counter}.{account.emoji.strip()} {account.name}")
+        counter+= 1
+    print("0. Exit")
+    return len(account_list)
+
 def get_accounts(client, json_handler):
     resp = client.get("accounts")
     data_list = json_handler.get_data(resp)
+    account_list = []
     if len(data_list) > 0:
         for account in data_list:
             add_account(account)
@@ -64,8 +79,25 @@ def main():
             
             case "2":
                 print('---------------------------------------------------------------')
-                # viewAccountTransactions()
+                # TODO - better handling of this, potential error
+                number_of_accounts = get_transactions(client, json_handler)
                 # print("view transactions working!")
+                choice = input("Choose an account with the corresponding number: ")
+                # convert to int, how to handle errors with that
+                while choice != "0":
+                    # if choice is greater than len(account_length), re-enter
+                    if choice > len(account_list):
+                        print("Try again")
+                        continue
+                    # if choice is 0, exit
+                    if choice == 0:
+                        print("Exiting...")
+                        break
+                    else:
+                        print()
+                    
+                    
+                    # match choice to corresponding account in length
                 input('Press enter to continue...')
             
             case "3":
