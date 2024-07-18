@@ -14,3 +14,4 @@ Optional:
 - Add error handling for requests (test for response codes)
 - Load in accounts on program start?
 - List account by ID
+- Invalid option chosen in start menu, says bye for now
