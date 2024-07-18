@@ -45,6 +45,11 @@ def get_transactions(client, json_hanlder):
     print("0. Exit")
     return len(account_list)
 
+def view_transactions(client, json_hanlder, id):
+    resp = client.get(f"accounts/{id}/transactions")
+    data_list = json_hanlder.get_data(resp)
+    for transaction in data_list:
+        print(f'{transaction["attributes"]["settledAt"][:10]} - ${transaction["attributes"]["amount"]["value"]}: {transaction["attributes"]["description"]}')
 def get_accounts(client, json_handler):
     resp = client.get("accounts")
     data_list = json_handler.get_data(resp)
@@ -92,9 +97,13 @@ def main():
                         print("Invalid input! Please enter an integer")
 
                 while choice != 0:
-                    print(f"{account_list[choice].name} was chosen!")
+                    print(f"{account_list[choice-1].name} was chosen!")
+                    account = account_list[choice]
+
                     break
                     # match choice to corresponding account in length
+                input('Press enter to continue...')
+                view_transactions(client, json_handler, account.id)
                 input('Press enter to continue...')
             
             case "3":
