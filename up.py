@@ -39,17 +39,18 @@ def get_transactions(client, json_hanlder):
         for account in data_list:
             add_account(account)
     counter = 1
+    print(len(account_list))
     for account in account_list:
         print(f"{counter}. {account.emoji.strip()} {account.name}")
         counter+= 1
     print("0. Exit")
-    return len(account_list)
 
 def view_transactions(client, json_hanlder, id):
     resp = client.get(f"accounts/{id}/transactions")
     data_list = json_hanlder.get_data(resp)
     for transaction in data_list:
         print(f'{transaction["attributes"]["settledAt"][:10]} - ${transaction["attributes"]["amount"]["value"]}: {transaction["attributes"]["description"]}')
+
 def get_accounts(client, json_handler):
     resp = client.get("accounts")
     data_list = json_handler.get_data(resp)
@@ -85,7 +86,7 @@ def main():
             case "2":
                 print('---------------------------------------------------------------')
                 # TODO - better handling of this, potential error
-                number_of_accounts = get_transactions(client, json_handler)
+                get_transactions(client, json_handler)
                 # print("view transactions working!")
                 while True:
                     try:
@@ -98,7 +99,7 @@ def main():
 
                 while choice != 0:
                     print(f"{account_list[choice-1].name} was chosen!")
-                    account = account_list[choice]
+                    account = account_list[choice-1]
 
                     break
                     # match choice to corresponding account in length
