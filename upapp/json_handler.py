@@ -5,3 +5,4 @@ class JSONHandler:
             for element in response["data"]:
                 data_list.append(element)
             return data_list
+        # return data list and 2 flags, whether a next page exists or a prev page exists.
