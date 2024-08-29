@@ -47,7 +47,12 @@ def get_transactions(client, json_hanlder):
     """Function to get a list of transactions"""
     
     resp = client.get("accounts")
-    data_list = json_hanlder.get_data(resp)
+    raw_data = json_hanlder.get_data(resp)
+    pages = []
+    data_list = raw_data[0]
+    if len(raw_data) > 1:
+        pages = raw_data[1]
+    
     account_list.clear()
     if len(data_list) > 0:
         for account in data_list:
@@ -66,9 +71,17 @@ def view_transactions(client, json_hanlder, id):
     an account ID is passed in (handled by menu selection)"""
 
     resp = client.get(f"accounts/{id}/transactions")
-    data_list = json_hanlder.get_data(resp)
-    for transaction in data_list:
+    
+    raw_data = json_hanlder.get_data(resp)
+    pages = []
+    data_list = raw_data[0]
+    if len(raw_data) > 1:
+        pages = raw_data[1]
+
+    # data_list = json_hanlder.get_data(resp)[0]
+    for transaction in data_list:        
         print(f'{transaction["attributes"]["settledAt"][:10]} - ${transaction["attributes"]["amount"]["value"]}: {transaction["attributes"]["description"]}')
+    print(pages)
 
 def get_accounts(client, json_handler):
     """Function used to get a list of accounts and print them to the CLI"""
@@ -100,7 +113,7 @@ def add_account(account):
 
 def main():
     """What are you doing here? 🤔"""
-    
+
     auth_info = get_auth_info()
     client = APIClient(auth_info[0], auth_info[1])
     json_handler = JSONHandler()
