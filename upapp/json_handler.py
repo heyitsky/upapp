@@ -2,7 +2,7 @@ class JSONHandler:
     def get_data(self, response):        
         if "data" in response:
             data = []
-            data_list = []
+            data_list = []            
             for element in response["data"]:
                 data.append(element)
             data_list.append(data)

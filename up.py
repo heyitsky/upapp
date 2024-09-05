@@ -88,10 +88,12 @@ def get_accounts(client, json_handler):
     
     resp = client.get("accounts")
     data_list = json_handler.get_data(resp)
+    # print(data_list)
     account_list.clear()
     if len(data_list) > 0:
-        for account in data_list:
-            add_account(account)
+        layer_1 = data_list[0]
+        for account in layer_1:            
+            add_account(account)                
     for account in account_list:
         # print(account)
         print(f"{account.emoji.strip()} {account.name} - ${account.balance}")
