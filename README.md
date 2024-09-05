@@ -13,5 +13,4 @@ Optional:
 - Add option to use .env for token or access token from file
 - Add error handling for requests (test for response codes)
 - Load in accounts on program start?
-- View accounts not working - when returning the account + list flag, the program can't access the account fields to add them
 
